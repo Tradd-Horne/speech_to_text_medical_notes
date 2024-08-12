@@ -1,4 +1,4 @@
-# Consultation-to-Notes-Base-Model
+# speech_to_text_medical_notes
 
 ## Project Description
 

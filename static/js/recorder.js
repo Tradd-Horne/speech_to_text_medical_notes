@@ -39,13 +39,15 @@ async function processAudio(audioBlob) {
     const formData = new FormData();
     formData.append('audio', audioBlob);
 
-    // Get the value from the "Extra Notes" textarea
     const extraNotes = document.getElementById('notes').value;
-    formData.append('notes', extraNotes);  // Add the notes to the FormData
+    formData.append('notes', extraNotes);
 
-    // Get the CSRF token from the cookie
     const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
     formData.append('csrfmiddlewaretoken', csrftoken);
+
+    // Show the loading bar
+    document.getElementById('loadingBarContainer').style.display = 'block';
+    animateLoadingBar();
 
     const response = await fetch('/transcribe/', {
         method: 'POST',
@@ -54,10 +56,29 @@ async function processAudio(audioBlob) {
 
     const result = await response.json();
 
-    console.log(result);
-
     document.getElementById('transcript').innerText = "Transcript: " + result.transcript;
     document.getElementById('medical_note').innerText = "Medical Note: " + result.medical_note;
     document.getElementById('extra_notes').innerText = "Extra Notes: " + result.extra_notes;
 
+    // Hide the loading bar after processing is complete
+    document.getElementById('loadingBarContainer').style.display = 'none';
+    resetLoadingBar();
+}
+
+function animateLoadingBar() {
+    const loadingBar = document.getElementById('loadingBar');
+    let width = 0;
+    const interval = setInterval(() => {
+        if (width >= 100) {
+            clearInterval(interval);
+        } else {
+            width++;
+            loadingBar.style.width = width + '%';
+        }
+    }, 100); // Adjust the speed as needed
+}
+
+function resetLoadingBar() {
+    const loadingBar = document.getElementById('loadingBar');
+    loadingBar.style.width = '0%';
 }

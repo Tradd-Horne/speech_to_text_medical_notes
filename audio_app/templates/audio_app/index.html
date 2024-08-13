@@ -6,6 +6,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Speech to Text</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        #loadingBarContainer {
+            display: none;
+            width: 100%;
+            background-color: #f3f3f3;
+            margin-top: 20px;
+        }
+
+        #loadingBar {
+            width: 0%;
+            height: 30px;
+            background-color: #4caf50;
+            text-align: center;
+            line-height: 30px;
+            color: white;
+        }
+    </style>
 </head>
 <body>
     <h1>Speech to Text</h1>
@@ -20,15 +37,16 @@
     <h2>Extra Notes</h2>
     <textarea id="notes" rows="4" cols="50"></textarea>
 
-    
+    <div id="loadingBarContainer">
+        <div id="loadingBar">Loading...</div>
+    </div>
+
     <div id="transcript"></div>
     <div id="medical_note"></div>
     <div id="extra_notes"></div>
 
-    <!-- Include the CSRF token in a hidden input -->
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
 
-    <!-- Link to the external JavaScript file -->
     <script src="{% static 'js/recorder.js' %}"></script>
 </body>
 </html>

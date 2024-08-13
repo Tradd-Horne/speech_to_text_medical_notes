@@ -72,8 +72,8 @@ def transcribe(request):
         # Extract the generated medical note from the API response
         medical_note = response["choices"][0]["message"]["content"].strip()
 
-        print(f"GPT model duration: {gpt_duration:.2f} seconds")
         print(f"Whisper model duration: {whisper_duration:.2f} seconds")
+        print(f"GPT model duration: {gpt_duration:.2f} seconds")
 
         return JsonResponse(
             {

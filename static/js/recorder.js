@@ -59,4 +59,5 @@ async function processAudio(audioBlob) {
     document.getElementById('transcript').innerText = "Transcript: " + result.transcript;
     document.getElementById('medical_note').innerText = "Medical Note: " + result.medical_note;
     document.getElementById('extra_notes').innerText = "Extra Notes: " + result.extra_notes;
+
 }
